@@ -2,10 +2,11 @@ import React, { Component } from "react";
 import Aux from "../../hoc/Auxilliary";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-import { flushSync } from "react-dom";
-import { object } from "prop-types";
+// import { flushSync } from "react-dom";
+// import { object } from "prop-types";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+
 const INGREDIENT_PRICES = {
   salad: 0.5,
   cheese: 0.4,
@@ -81,6 +82,10 @@ class BurgerBuilder extends Component {
   purchaseCancelHandler = () => {
     this.setState({ purchasing: false });
   };
+  purchaseContinueHandler = () => {
+    // this.setState({ purchasing: true });
+    alert("You Continue");
+  };
   render() {
     const disableInfo = {
       ...this.state.ingredients,
@@ -95,7 +100,12 @@ class BurgerBuilder extends Component {
           show={this.state.purchasing}
           modalClosed={this.purchaseCancelHandler}
         >
-          <OrderSummary ingredients={this.state.ingredients} />
+          <OrderSummary
+            ingredients={this.state.ingredients}
+            purchaseCancelled={this.purchaseCancelHandler}
+            purchaseContinued={this.purchaseContinueHandler}
+            price={this.state.totalPrice}
+          />
         </Modal>
 
         <Burger ingred={this.state.ingredients} />
